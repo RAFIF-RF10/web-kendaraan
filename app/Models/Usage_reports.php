@@ -9,4 +9,5 @@ class Usage_reports extends Model
 {
     /** @use HasFactory<\Database\Factories\UsageReportsFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
 }
