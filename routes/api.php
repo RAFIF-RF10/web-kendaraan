@@ -16,3 +16,6 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
     Route::post('register', [AuthController::class, 'register']);
 });
+
+Route::post('bookings/{id}/approve', [BookingsController::class, 'approve']);
+// Route::post('bookings/{id}/reject', [BookingsController::class, 'reject']);

@@ -5,10 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\Bookings;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class BookingsController extends Controller
 {
+    public function approve(Request $request, $booking_id)
+    {
+        $user_id = Auth::user()->id;
+        $booking = Bookings::where('id', $booking_id)->where('status', 'pending')->first();
+
+        if (!$booking) {
+            return response()->json(['message' => 'Booking not found or already approved'], 404);
+        }
+
+        if (is_null($booking->approved_by_1)) {
+            $booking->approved_by_1 = $user_id;
+            $booking->status = 'pending_level_2';
+        } elseif (is_null($booking->approved_by_2)) {
+            $booking->approved_by_2 = $user_id;
+            $booking->status = 'approved';
+        } else {
+            return response()->json(['message' => 'Booking has already been fully approved'], 400);
+        }
+
+        // Simpan perubahan ke database
+        $booking->save();
+        return response()->json($booking, 200);
+    }
+
+
+
     // Mendapatkan semua pemesanan
     public function index()
     {
