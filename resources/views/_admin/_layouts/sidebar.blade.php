@@ -15,7 +15,7 @@
         <ul id="sidebarnav">
           <li class="nav-small-cap">
             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-            <span class="hide-menu">Beranda</span>
+            <span class="hide-menu">Home</span>
           </li>
           <li class="sidebar-item">
             <a class="sidebar-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"  aria-expanded="false">
@@ -25,6 +25,26 @@
           </li>
           <li>
             <span class="sidebar-divider lg"></span>
+          </li>
+          <li class="nav-small-cap">
+            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+            <span class="hide-menu">Vehicle Management</span>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link {{ request()->is('admin/vehicle') ? 'active' : '' }}" href="{{ route('vehicle.index') }}"  aria-expanded="false">
+                <iconify-icon icon="hugeicons:dashboard-square-03"></iconify-icon>
+              <span class="hide-menu">Vehicle</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link {{ request()->is('admin/service') ? 'active' : '' }}" href=""  aria-expanded="false">
+                <iconify-icon icon="hugeicons:dashboard-square-03"></iconify-icon>
+              <span class="hide-menu">Service</span>
+            </a>
+          </li>
+          <li>
+            <span class="sidebar-divider lg"></span>
+          </li>
           <li class="nav-small-cap">
             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
             <span class="hide-menu">PENGATURAN</span>

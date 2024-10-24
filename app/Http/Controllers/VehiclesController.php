@@ -12,7 +12,11 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        //
+        $kendaraan = Vehicles::paginate(10);
+
+        return view('_admin.vehicle.list', [
+            'data' => $kendaraan
+        ]);
     }
 
     /**

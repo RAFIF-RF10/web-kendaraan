@@ -32,6 +32,8 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json(['message' => 'Berhasil buat akun baru', 'data' => $user, 'token' => $token], 200);
+        return redirect()->intended('/');
+
     }
 
     public function loginView()
