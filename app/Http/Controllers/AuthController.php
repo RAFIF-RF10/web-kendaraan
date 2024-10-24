@@ -34,6 +34,11 @@ class AuthController extends Controller
         return response()->json(['message' => 'Berhasil buat akun baru', 'data' => $user, 'token' => $token], 200);
     }
 
+    public function loginView()
+    {
+        return view('login');
+    }
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -52,7 +57,8 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['data' => $user, 'token' => $token], 200);
+        // return response()->json(['data' => $user, 'token' => $token], 200);
+        return redirect()->intended('admin/dashboard')->with('success', 'Selamat Datang');
     }
 
     public function logout(Request $request)

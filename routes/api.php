@@ -9,7 +9,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::resource('bookings', BookingsController::class);
 
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -17,5 +16,6 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
 });
 
-Route::post('bookings/{id}/approve', [BookingsController::class, 'approve']);
-// Route::post('bookings/{id}/reject', [BookingsController::class, 'reject']);
+Route::resource('bookings', BookingsController::class);
+Route::post('bookings/{id}/approve', [BookingsController::class, 'approve'])->middleware('auth:sanctum');
+Route::post('bookings/{id}/reject', [BookingsController::class, 'reject'])->middleware('auth:sanctum');

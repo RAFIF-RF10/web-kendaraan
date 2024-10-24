@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('driver_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('approved_by_1')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('approved_by_2')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('rejected_by_1')->nullable()->constrained('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved_by_1', 'fully_approved', 'rejected'])->default('pending');
             $table->date('start_date');
             $table->date('end_date');

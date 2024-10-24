@@ -13,7 +13,7 @@ class BookingsController extends Controller
     public function approve(Request $request, $booking_id)
     {
         $user_id = Auth::user()->id;
-        $booking = Bookings::where('id', $booking_id)->where('status', 'pending')->first();
+        $booking = Bookings::where('id', $booking_id)->first();
 
         if (!$booking) {
             return response()->json(['message' => 'Booking not found or already approved'], 404);
@@ -21,10 +21,10 @@ class BookingsController extends Controller
 
         if (is_null($booking->approved_by_1)) {
             $booking->approved_by_1 = $user_id;
-            $booking->status = 'pending_level_2';
+            $booking->status = 'approved_by_1';
         } elseif (is_null($booking->approved_by_2)) {
             $booking->approved_by_2 = $user_id;
-            $booking->status = 'approved';
+            $booking->status = 'fully_approved';
         } else {
             return response()->json(['message' => 'Booking has already been fully approved'], 400);
         }
@@ -34,7 +34,27 @@ class BookingsController extends Controller
         return response()->json($booking, 200);
     }
 
+    public function reject(Request $request, $booking_id)
+    {
+        $user_id = Auth::user()->id;
+        $booking = Bookings::where('id', $booking_id)->where('status', 'pending')->first();
 
+        if (!$booking) {
+            return response()->json(['message' => 'Booking not found or already processed'], 404);
+        }
+
+        // Jika booking masih dalam status pending, proses penolakan
+        if (is_null($booking->rejected_by_1)) {
+            $booking->rejected_by_1 = $user_id;
+            $booking->status = 'rejected';
+        } else {
+            return response()->json(['message' => 'Booking has already been processed'], 400);
+        }
+
+        // Simpan perubahan ke database
+        $booking->save();
+        return response()->json(['message' => 'Booking has been rejected'], 200);
+    }
 
     // Mendapatkan semua pemesanan
     public function index()
