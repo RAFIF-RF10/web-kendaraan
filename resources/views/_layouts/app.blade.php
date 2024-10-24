@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jurnalistik | SMKN 8 JEMBER</title>
+  <title>Pemesanan Kendaraan</title>
   <link rel="shortcut icon" type="image/png" href="/assets/images/logos/jurnalistik.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="/assets/css/styles.min.css" />
@@ -17,7 +17,7 @@
 
     @include('_admin/_layouts/sidebar')
     @include('sweetalert::alert')
-    
+
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
