@@ -64,3 +64,147 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Berikut adalah struktur README.md untuk aplikasi pemesanan kendaraan dengan persetujuan bertingkat, dashboard pemakaian, dan laporan periodik yang dapat diekspor dalam format Excel.
+
+---
+
+# Aplikasi Pemesanan Kendaraan
+
+ Deskripsi
+Aplikasi ini dirancang untuk pemesanan kendaraan dengan dua peran pengguna:
+- **Admin**: Mengelola pemesanan, menentukan pengemudi, dan menetapkan pihak yang menyetujui.
+- **Penyetuju**: Meninjau dan menyetujui pemesanan melalui proses persetujuan bertingkat (minimal 2 level).
+
+Fitur Utama:
+- Admin dapat membuat pemesanan dan menentukan penyetuju.
+- Persetujuan bertingkat minimal 2 level.
+- Pihak penyetuju dapat melakukan persetujuan melalui aplikasi.
+- Dashboard menampilkan statistik pemakaian kendaraan.
+- Laporan periodik pemesanan dapat diekspor ke format Excel.
+
+---
+
+## Kredensial Pengguna
+Berikut adalah daftar nama pengguna dan kata sandi default untuk pengujian aplikasi:
+
+### Admin
+- **Username**: admin
+- **Password**: admin123
+
+### Penyetuju Level 1
+- **Username**: approver1
+- **Password**: approver123
+
+### Penyetuju Level 2
+- **Username**: approver2
+- **Password**: approver123
+
+---
+
+## Persyaratan Sistem
+- **Versi PHP**: 8.2 
+- **Basis Data**: MySQL 8.0 
+- **Framework**: Laravel 11
+- **Versi Node.js**: 18.x
+- **Tailwind CSS**: 3.x 
+
+---
+
+## Panduan Instalasi
+
+1. Clone Repositori
+```bash
+git clone https://github.com/your-repository/vehicle-booking-app.git
+cd vehicle-booking-app
+```
+
+## 2. Instalasi Dependensi
+Pastikan untuk menginstal dependensi PHP dan Node.js.
+```bash
+composer install
+npm install
+```
+
+### 3. Atur Variabel Lingkungan
+Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi yang diperlukan:
+```bash
+cp .env.example .env
+```
+- Atur kredensial **database** Anda di file `.env` (MySQL atau PostgreSQL):
+  ```bash
+  DB_CONNECTION=mysql
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=db_sekawan
+  DB_USERNAME=root
+  DB_PASSWORD=
+  ```
+
+ 4. Generate Application Key
+
+php artisan key:generate
+```
+
+ 5. Migrasi Database
+Jalankan migrasi dan seed database dengan data contoh.
+```bash
+php artisan migrate --seed
+```
+
+ 6. Build Aset Frontend
+Kompilasi aset Tailwind CSS menggunakan Laravel Mix:
+```bash
+npm run dev
+```
+
+ 7. Jalankan Aplikasi
+Jalankan aplikasi secara lokal:
+```bash
+php artisan serve
+```
+
+Aplikasi sekarang akan tersedia di `http://localhost:8000`.
+
+---
+
+ Panduan Penggunaan
+
+ 1. Dashboard Admin
+- Login sebagai admin menggunakan kredensial yang telah diberikan.
+- Masuk ke bagian Pemesanan untuk membuat pemesanan baru.
+- Tentukan pengemudi dan pilih pihak penyetuju untuk pemesanan tersebut.
+
+ 2. Proses Persetujuan
+- Login sebagai Penyetuju Level 1 untuk meninjau dan menyetujui pemesanan yang tertunda.
+- Setelah persetujuan di level pertama, **Penyetuju Level 2 dapat melihat dan menyetujui pemesanan.
+
+ 3. Dashboard Pemakaian Kendaraan
+- Bagian **dashboard** menampilkan grafik yang merangkum statistik pemakaian kendaraan.
+
+ 4. Ekspor Laporan
+- Pergi ke bagian Laporan untuk melihat riwayat pemesanan.
+- Klik Ekspor ke Excel untuk mengunduh laporan dalam format `.xlsx`.
+
+---
+
+## Informasi Tambahan
+
+### Menjalankan Tes
+Untuk menjalankan tes otomatis, gunakan perintah:
+```bash
+php artisan test
+```
+
+### Kompilasi Aset untuk Produksi
+Untuk membangun aset frontend yang dioptimalkan untuk produksi:
+```bash
+npm run build
+```
+
+---
+
+## Pemecahan Masalah
+
+- Pastikan semua variabel lingkungan di `.env` sudah dikonfigurasi dengan benar.
+- Untuk masalah terkait database, periksa apakah driver database (MySQL atau PostgreSQL) sudah terpasang dan berjalan dengan baik.
