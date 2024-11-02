@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicles extends Model
+class Driver extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'license_number'];
 
-    /**
-     * Define a one-to-many relationship with Booking.
-     */
     public function bookings()
     {
-        return $this->hasMany(Bookings::class, 'vehicle_id');
+        return $this->hasMany(Bookings::class);
     }
 }

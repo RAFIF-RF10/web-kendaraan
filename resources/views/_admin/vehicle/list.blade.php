@@ -10,7 +10,7 @@
                             <h3 class="fw-bolder">Kendaraan</h3>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a href="" class="btn btn-primary text-center">
+                            <a href="{{route('vehicle.create')}}" class="btn btn-primary text-center">
                                 <b>Tambah Data</b></a>
                         </div>
                     </div>
@@ -18,19 +18,21 @@
                     <table class="table table-bordered table-hover table-md">
                         <thead>
                           <tr class="table-light">
-                            <th width="5%" class="text-center fs-4  text-muted">No.</th>
-                            <th width="80%" class="fs-4 text-muted">Tipe</th>
-                            <th width="20%" class="text-center fs-4 text-muted" >Aksi</th>
+                            <th width="5%" class="text-center fs-4 text-muted">No.</th>
+                            <th width="40%" class="fs-4 text-muted">Tipe</th>
+                            <th width="40%" class="fs-4 text-muted">Model</th>
+                            <th width="15%" class="text-center fs-4 text-muted">Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
                         @php
-                            $increment = 1   
+                            $increment = 1
                         @endphp
                         @foreach ($data as $item)
                             <tr>
                                 <td class="text-black-50" scope="row">{{ $increment++ }}</td>
                                 <td class="fs-4 fw-bold text-black-50">{{ $item->type }}</td>
+                                <td class="fs-4 fw-bold text-black-50">{{ $item->model }}</td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button class="btn btn-light btn-sm" type="button" data-bs-toggle="dropdown"
@@ -46,17 +48,24 @@
                                             </svg>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a href="" class="dropdown-item">Edit</a>
+                                            <li>
+                                                <a href="{{ route('vehicle.edit', $item->id) }}" class="dropdown-item">Edit</a>
                                             </li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
-                                            <li><a class="dropdown-item text-danger" href="" data-confirm-delete="true">Hapus</a></li>
+                                            <li>
+                                                <form action="{{ route('vehicle.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                </form>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
-                          @endforeach
+                        @endforeach
                         </tbody>
                       </table>
                       @if (!count($data))
@@ -72,4 +81,11 @@
             </div>
         </div>
     </div>
+
+    {{-- Flash Message --}}
+    @if(session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+    @endif
 @endsection

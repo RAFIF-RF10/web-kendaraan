@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function registerView()
+{
+    return view('register'); 
+}
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -20,21 +25,19 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => 'Invalid field', 'errors' => $validator->errors()]);
+            return back()->withErrors($validator)->withInput();
         }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password), // Hashing password
             'role' => $request->role,
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json(['message' => 'Berhasil buat akun baru', 'data' => $user, 'token' => $token], 200);
-        return redirect()->intended('/');
-
+        return redirect()->route('login')->with('success', 'Berhasil buat akun baru. Silakan login.');
     }
+
 
     public function loginView()
     {
